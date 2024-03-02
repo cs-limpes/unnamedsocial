@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]  # Adjust node versions as needed
+        node-version: [14.x, 16.x]  
 
     steps:
     - uses: actions/checkout@v2
@@ -27,7 +27,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-node-  
     - run: npm ci
-    - run: npm run lint  # Assuming you have a lint script set up for TypeScript
+    - run: npm run lint  
     - name: Check types
       run: npx tsc --noEmit
     - name: Run tests
