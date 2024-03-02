@@ -20,9 +20,25 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+    - uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-  
     - run: npm ci
     - run: npm run lint  # Assuming you have a lint script set up for TypeScript
     - name: Check types
       run: npx tsc --noEmit
+    - name: Run tests
+      run: npm test
+
     - run: npm run build
     # Add additional steps for testing, deployment, etc.
+    # Example:
+    # - name: Deploy to Production
+       # if: github.ref == 'refs/heads/main'
+       # run: npm run deploy
+       # env:
+        # Environment variables required for deployment, like API keys or custom configurations
+
